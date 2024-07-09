@@ -1,0 +1,19 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Prototype for Myntra hackeramp",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm start index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aryapandeyy22/Myntra-HackerRamp-Shecoders.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aryapandeyy22/Myntra-HackerRamp-Shecoders/issues"
+  },
+  "homepage": "https://github.com/aryapandeyy22/Myntra-HackerRamp-Shecoders#readme"
+}
