@@ -1,12 +1,28 @@
 {
-  "name": "myntra-hackerramp-shecoders",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Prototype for Myntra hackeramp",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm start index.js"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aryapandeyy22/Myntra-HackerRamp-Shecoders.git"
+  },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aryapandeyy22/Myntra-HackerRamp-Shecoders/issues"
+  },
+  "homepage": "https://github.com/aryapandeyy22/Myntra-HackerRamp-Shecoders#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "firebase-admin": "^12.2.0",
+    "lodash": "^4.17.21",
+    "mysql2": "^3.10.2",
+    "nodemon": "^3.1.4"
+  }
 }
