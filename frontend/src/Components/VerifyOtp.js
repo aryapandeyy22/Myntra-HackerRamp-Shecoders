@@ -1,7 +1,7 @@
 // src/VerifyOtp.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import './VerifyOtp.css'; // Ensure you have appropriate CSS for styling
+import './VerifyOtp.css'; 
 
 function VerifyOtp({ phone }) {
   const [otp, setOtp] = useState(new Array(6).fill(""));
@@ -24,12 +24,15 @@ function VerifyOtp({ phone }) {
     e.preventDefault();
     try {
       setError('');
-      const response = await axios.post('http://localhost:3000/verify-otp', {
-        phone,
+      const response = await axios.post('http://localhost:3000/auth/verify-otp', {
+        phone, 
         otp: otp.join("")
       });
+      localStorage.setItem('authToken', response.data.token);
       if (response.status === 200) {
         setIsVerified(true);
+        //store token
+        // localStorage.setItem('authToken', response.data.token);
       }
     } catch (error) {
       setError('Invalid OTP. Please try again.');
@@ -49,7 +52,7 @@ function VerifyOtp({ phone }) {
   const resendOtp = async () => {
     try {
       setError('');
-      await axios.post('http://localhost:3000/send-otp', { phone });
+      await axios.post('http://localhost:3000/auth/send-otp', { phone });
       setResendTime(30);
     } catch (error) {
       setError('Error resending OTP. Please try again.');
