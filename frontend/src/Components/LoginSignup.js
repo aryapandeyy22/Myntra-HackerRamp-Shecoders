@@ -2,10 +2,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import VerifyOtp from './VerifyOtp';
+import {PhoneContext } from './PhoneContext';
 import './LoginSignup.css'; // Ensure you have appropriate CSS for styling
 
 function LoginSignup() {
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState(PhoneContext);
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [error, setError] = useState('');
 
@@ -13,17 +14,38 @@ function LoginSignup() {
     return `+91${number}`;
   };
 
-  const sendOtp = async () => {
+  // const sendOtp = async () => {
+  //   try {
+  //     setError('');
+  //     const formattedPhone = formatPhoneNumber(phone);
+  //     const response = await axios.post('http://localhost:3000/send-otp', { phone: formattedPhone });
+  //     if (response.status === 200) {
+  //       setIsOtpSent(true);
+  //     }
+  //   } catch (error) {
+  //     setError('Error sending OTP. Please try again.');
+  //     console.error('Error sending OTP', error);
+  //   }
+  // };
+
+  const checkPhoneAndSendOtp = async () => {
     try {
       setError('');
       const formattedPhone = formatPhoneNumber(phone);
-      const response = await axios.post('http://localhost:3000/send-otp', { phone: formattedPhone });
-      if (response.status === 200) {
-        setIsOtpSent(true);
+
+      // Check phone number and create new user if not exists
+      const checkPhoneResponse = await axios.post('http://localhost:3000/auth/check-phone', { phone: formattedPhone });
+      
+      if (checkPhoneResponse.data === 'New user created' || checkPhoneResponse.data === 'Phone number exists') {
+        // Send OTP
+        const response = await axios.post('http://localhost:3000/auth/send-otp', { phone: formattedPhone });
+        if (response.status === 200) {
+          setIsOtpSent(true);
+        }
       }
     } catch (error) {
-      setError('Error sending OTP. Please try again.');
-      console.error('Error sending OTP', error);
+      setError('Error checking phone number or sending OTP. Please try again.');
+      console.error('Error checking phone number or sending OTP', error);
     }
   };
 
@@ -37,7 +59,7 @@ function LoginSignup() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              sendOtp();
+              checkPhoneAndSendOtp();
             }}
           >
             <div className="input-group">
