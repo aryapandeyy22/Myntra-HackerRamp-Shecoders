@@ -1,8 +1,12 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const sequelize = require('../config/dbConfig');
 
 const ThriftItem = sequelize.define('ThriftItem', {
-  title: {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+},title: {
     type: DataTypes.STRING,
     allowNull: false
   },   

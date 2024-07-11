@@ -5,6 +5,7 @@ const thriftController = require('../controllers/thriftController');
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
 
-router.post('/addThriftItem', upload.array('files'), thriftController.addThriftItem);
+router.post('/additem', upload.array('files', 10), thriftController.addThriftItem);
+router.get('/:id', thriftController.getThriftItem);
 
 module.exports = router;
