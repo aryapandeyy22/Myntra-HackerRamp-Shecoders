@@ -2,36 +2,26 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import VerifyOtp from './VerifyOtp';
-import {PhoneContext } from './PhoneContext';
-import './LoginSignup.css'; // Ensure you have appropriate CSS for styling
+//import {PhoneContext } from './PhoneContext';
+import { useDispatch } from 'react-redux';
+import { setPhone } from '../actions/index';
+import './LoginSignup.css'; 
 
 function LoginSignup() {
-  const [phone, setPhone] = useState(PhoneContext);
+  //const [phone, setPhone] = useState('');
+  const [phoneInput , setPhoneInput ] = useState('');
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [error, setError] = useState('');
+  const dispatch = useDispatch();
 
   const formatPhoneNumber = (number) => {
     return `+91${number}`;
   };
 
-  // const sendOtp = async () => {
-  //   try {
-  //     setError('');
-  //     const formattedPhone = formatPhoneNumber(phone);
-  //     const response = await axios.post('http://localhost:3000/send-otp', { phone: formattedPhone });
-  //     if (response.status === 200) {
-  //       setIsOtpSent(true);
-  //     }
-  //   } catch (error) {
-  //     setError('Error sending OTP. Please try again.');
-  //     console.error('Error sending OTP', error);
-  //   }
-  // };
-
   const checkPhoneAndSendOtp = async () => {
     try {
       setError('');
-      const formattedPhone = formatPhoneNumber(phone);
+      const formattedPhone = formatPhoneNumber(phoneInput);
 
       // Check phone number and create new user if not exists
       const checkPhoneResponse = await axios.post('http://localhost:3000/auth/check-phone', { phone: formattedPhone });
@@ -41,6 +31,7 @@ function LoginSignup() {
         const response = await axios.post('http://localhost:3000/auth/send-otp', { phone: formattedPhone });
         if (response.status === 200) {
           setIsOtpSent(true);
+          dispatch(setPhone(formattedPhone));
         }
       }
     } catch (error) {
@@ -52,7 +43,7 @@ function LoginSignup() {
   return (
     <div className="login-container">
       {isOtpSent ? (
-        <VerifyOtp phone={formatPhoneNumber(phone)} />
+        <VerifyOtp phone={formatPhoneNumber(phoneInput)} />
       ) : (
         <>
           <h2>Login or Signup</h2>
@@ -68,8 +59,8 @@ function LoginSignup() {
                 type="text"
                 id="phone"
                 placeholder="Mobile Number"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                value={phoneInput}
+                onChange={(e) => setPhoneInput(e.target.value)}
                 required
               />
             </div>

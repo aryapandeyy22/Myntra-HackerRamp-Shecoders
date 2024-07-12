@@ -1,19 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { PhoneContext } from './PhoneContext';
 import './EditProfile.css'; 
 
 function EditProfile() {
   const location = useLocation();
   const [profile, setProfile] = useState({});
   const navigate = useNavigate();
-  const { phone } = useContext(PhoneContext);
+  //const { phone } = useContext(PhoneContext);
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.post('http://localhost:3000/profile/get-profile', { phone });
+        const response = await axios.post('http://localhost:3000/profile/get-profile', {  });
         setProfile(response.data);
       } catch (error) {
         console.error('Error fetching profile', error);
@@ -21,7 +20,7 @@ function EditProfile() {
     };
 
     fetchProfile();
-  }, [phone]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,7 +30,7 @@ function EditProfile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3000/profile/update-profile', {phone, ...profile});
+      await axios.post('http://localhost:3000/profile/update-profile', { ...profile});
       navigate.push('/profile');
     } catch (error) {
       console.error('Error updating profile', error);
