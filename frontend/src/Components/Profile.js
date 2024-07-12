@@ -1,34 +1,52 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import {PhoneContext } from './PhoneContext.js';
+import { useSelector } from 'react-redux';
 import './Profile.css'; 
 
 function Profile() {
   const [profile, setProfile] = useState({});
+  const [error , setError ] = useState('');
   const navigate = useNavigate();
-  const { phone } = useContext(PhoneContext);
+  //const phone = useSelector ((state) => state.auth.phone);
+  const phone = '+918817621427';
 
   useEffect(() => {
+    console.log('Phone:' , phone);
+
     const fetchProfile = async () => {
       try {
-        const token = localStorage.getItem('authToken');
-        console.log('Token from localStorage:', token);
-        const response = await axios.post('http://localhost:3000/profile/get-profile',{}, { 
-          headers: {Authorization: `Bearer ${token}`}
-         });
+        const response = await axios.post('http://localhost:3000/profile/get-profile',{phone});
         setProfile(response.data);
       } catch (error) {
+        setError('Error fetching profile. Please try again');
         console.error('Error fetching profile', error);
       }
     };
 
-    fetchProfile();
+    if(phone) fetchProfile();
   }, [phone]);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
 
   const handleEdit = () => {
     navigate('/edit-profile', { state: { profile } });
   };
+
+  //crowdsource profile
+  // const handleCreateCrowdProfile = async () => {
+  //   try {
+  //     //const token = localStorage.getItem('authToken');
+  //     await axios.post('http://localhost:3000/crowdprofile/create', { phone});
+  //     navigate('/create-crowd-profile');
+  //   } catch (error) {
+  //     console.error('Error creating crowdsource profile', error);
+  //   }
+  // };
+
 
   if (!profile) {
     return <p>Loading...</p>;
@@ -48,6 +66,8 @@ function Profile() {
         <p><strong>Hint Name:</strong> {profile.hintname || '- not added -'}</p>
       </div>
       <button className="edit-btn" onClick={handleEdit}>EDIT</button>
+      <br></br>
+      {/* <button className="edit-btn" onClick={handleCreateCrowdProfile}>Create Crowdsource Profile</button> */}
     </div>
   );
 }

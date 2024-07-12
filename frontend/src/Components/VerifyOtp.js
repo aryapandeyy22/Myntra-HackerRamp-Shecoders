@@ -1,13 +1,17 @@
 // src/VerifyOtp.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+//import Profile from './Profile';
 import './VerifyOtp.css'; 
 
-function VerifyOtp({ phone }) {
+function VerifyOtp() {
   const [otp, setOtp] = useState(new Array(6).fill(""));
   const [error, setError] = useState('');
   const [resendTime, setResendTime] = useState(30);
   const [isVerified, setIsVerified] = useState(false);
+  const dispatch = useDispatch();
+  const phone = useSelector((state) => state.auth.phone);
 
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return false;
@@ -28,11 +32,11 @@ function VerifyOtp({ phone }) {
         phone, 
         otp: otp.join("")
       });
-      localStorage.setItem('authToken', response.data.token);
+      //localStorage.setItem('authToken', response.data.token);
       if (response.status === 200) {
         setIsVerified(true);
-        //store token
-        // localStorage.setItem('authToken', response.data.token);
+        dispatch({ type: 'SET_PHONE', payload: phone });
+      
       }
     } catch (error) {
       setError('Invalid OTP. Please try again.');
@@ -63,7 +67,10 @@ function VerifyOtp({ phone }) {
   return (
     <div className="verify-container">
       {isVerified ? (
-        <h2>OTP Verified Successfully</h2>
+        <>
+          <h2>OTP Verified Successfully</h2>
+        </>
+        
       ) : (
         <>
           <h2>Verify with OTP</h2>
