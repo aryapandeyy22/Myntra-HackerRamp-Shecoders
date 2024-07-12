@@ -4,7 +4,7 @@ import axios from 'axios';
 import VerifyOtp from './VerifyOtp';
 //import {PhoneContext } from './PhoneContext';
 import { useDispatch } from 'react-redux';
-import { setPhone } from '../actions/index';
+import { setPhone } from '../../actions/index';
 import './LoginSignup.css'; 
 
 function LoginSignup() {

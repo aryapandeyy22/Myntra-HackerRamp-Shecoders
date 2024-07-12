@@ -1,0 +1,77 @@
+/* ProductGrid.css */
+
+.grid {
+    display: grid;
+    gap: 20px;
+  }
+  
+  .grid-cols-1 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  
+  .sm\\:grid-cols-2 {
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  .lg\\:grid-cols-3 {
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .gap-4 {
+    gap: 1rem;
+  }
+  
+  .product-card {
+    background-color: #fff;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .product-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .product-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .product-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  .product-price {
+    color: #ff6347;
+    font-size: 1rem;
+    margin: 5px 0;
+  }
+  
+  .sold-out {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .sold-out::after {
+    content: "SOLD OUT";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    color: #ff6347;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  

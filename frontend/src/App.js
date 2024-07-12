@@ -1,15 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LoginSignup from "./Components/LoginSignup.js"
+import {PhoneProvider} from './Components/Auth/PhoneContext.js';
+import LoginSignup from "./Components/Auth/LoginSignup.js"
 import Profile from './Components/Profile.js';
 import EditProfile from './Components/EditProfile.js';
+import ThriftPage from './Components/Thrift/ThriftHome.js';
 import PaymentOptions from './Components/PaymentOptions.js';
 import CreateCrowdProfile from './Components/CreateCrowdProfile.js';
+
 import './App.css';
 
 function App() {
   return (
-    //<PhoneProvider>
+    <PhoneProvider>
     <Router>
       <div className="app">
         <Routes>
@@ -19,10 +22,14 @@ function App() {
           <Route path="/" exact element={<LoginSignup />} />
           <Route path='/pay' element={<PaymentOptions />}></Route>
           <Route path='/crowdprofile' element={<CreateCrowdProfile/>}></Route>
+          <Route path="/" exact element={<Profile />} />
+          <Route path="/thrift" element={<ThriftPage />} />
+      
+
         </Routes>
       </div>
     </Router>
-    //</PhoneProvider>
+    </PhoneProvider>
   );
 }
 

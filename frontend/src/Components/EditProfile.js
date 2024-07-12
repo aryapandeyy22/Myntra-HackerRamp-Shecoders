@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { PhoneContext } from './Auth/PhoneContext';
 import './EditProfile.css'; 
 
 function EditProfile() {
