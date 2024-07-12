@@ -1,11 +1,12 @@
 //const Profile = require('../models/profile');
 const db = require('../config/dbConfig');
-const jwt = require('jsonwebtoken');
+//const jwt = require('jsonwebtoken');
 
 exports.getProfile = (req, res) => {
-  console.log('req.user:' , req.user);
-    const  phone  = req.user.phone;
+  //console.log('req.user:' , req.user);
+    const  {phone}  = req.body;
     const sql = 'SELECT * FROM profile WHERE phone = ?';
+    console.log(phone);
   
     db.query(sql, [phone], (err, result) => {
       if (err) {
@@ -16,6 +17,7 @@ exports.getProfile = (req, res) => {
         console.log('Profile found:', result[0]);
         return res.json(result[0]);
       } else {
+        console.log('Profile not found ');
         return res.status(404).send('Profile not found');
       }
     });
