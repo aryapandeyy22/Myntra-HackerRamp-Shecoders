@@ -1,6 +1,6 @@
 const admin = require('../utils/firebase');
 const db = require('../config/dbConfig');
-const jwt = require('jsonwebtoken');
+//const jwt = require('jsonwebtoken');
 
 exports.checkPhone=(req, res) => {
     const { phone } = req.body;
@@ -50,10 +50,10 @@ exports.verifyOtp= (req, res) => {
         return res.status(400).send('Invalid OTP');
       }
       res.status(200).send('OTP verified');
-      //generate token
-      const token = jwt.sign({ phone }, process.env.JWT_SECRET, { expiresIn: '1h' });
-      console.log('Generated token:' , token);
-      res.json({ token });
+      // //generate token
+      // const token = jwt.sign({ phone }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      // console.log('Generated token:' , token);
+      // res.json({ token });
     });
   };
 

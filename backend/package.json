@@ -4,7 +4,7 @@
   "description": "Prototype for Myntra hackeramp",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm start index.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +27,7 @@
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.10.2",
     "nodemon": "^3.1.4",
-    "sequelize": "^6.37.3",
-    "uuid": "^10.0.0"
+    "paypal-rest-sdk": "^1.8.1",
+    "sequelize": "^6.37.3"
   }
 }
