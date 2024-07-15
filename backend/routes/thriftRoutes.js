@@ -7,5 +7,6 @@ const upload = multer({ dest: 'uploads/' });
 
 router.post('/additem', upload.array('files', 10), thriftController.addThriftItem);
 router.get('/:id', thriftController.getThriftItem);
+router.get('/h/all_items', thriftController.getAllThriftItems);
 
 module.exports = router;

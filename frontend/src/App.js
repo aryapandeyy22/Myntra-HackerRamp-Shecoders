@@ -7,6 +7,7 @@ import EditProfile from './Components/EditProfile.js';
 import ThriftPage from './Components/Thrift/ThriftHome.js';
 import PaymentOptions from './Components/PaymentOptions.js';
 import CreateCrowdProfile from './Components/CreateCrowdProfile.js';
+import Home from './Components/Home/Home.js';
 
 import './App.css';
 
@@ -24,6 +25,7 @@ function App() {
           <Route path='/crowdprofile' element={<CreateCrowdProfile/>}></Route>
           <Route path="/" exact element={<Profile />} />
           <Route path="/thrift" element={<ThriftPage />} />
+          <Route path="/home" element={<Home />} />
       
 
         </Routes>

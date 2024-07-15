@@ -273,7 +273,7 @@ import Footer from '../Footer/Footer'
 
 const Home = () => {
 
-  const indicatorStyles: CSSProperties = {
+  const indicatorStyles = {
     background: '#CFCECD',
     width: 7,
     height: 7,
@@ -282,8 +282,8 @@ const Home = () => {
     margin: '0 4px 0 4px',
     zIndex: 8
   };
-  // #CFCECD
-  function indicator(onClickHandler, isSelected, index, label) {
+  
+  function Indicator({ onClickHandler, isSelected, index, label }) {
     if (isSelected) {
       return (
         <li
@@ -293,11 +293,10 @@ const Home = () => {
         />
       );
     }
-
+  
     return (
-
       <li
-        style={{ ...indicatorStyles }}
+        style={indicatorStyles}
         onClick={onClickHandler}
         onKeyDown={onClickHandler}
         value={index}
@@ -309,7 +308,7 @@ const Home = () => {
       />
     );
   }
-
+  
   useEffect(() => {
     document.documentElement.scrollTo = 0;
   }, []);
@@ -320,7 +319,7 @@ const Home = () => {
 
           <Fragment>
             <div className='mt-8 w-[100vw]'>
-              <Carousel showThumbs={false} showStatus={false} showArrows={false} showIndicators={true} autoPlay={6000} infiniteLoop={true} renderIndicator={(onClickHandler, isSelected, index, label) => indicator(onClickHandler, isSelected, index, label)}>
+              <Carousel showThumbs={false} showStatus={false} showArrows={false} showIndicators={true} autoPlay={6000} infiniteLoop={true} renderIndicator={(onClickHandler, isSelected, index, label) => Indicator(onClickHandler, isSelected, index, label)}>
                 <div>
 
                   <Link to='/products'><LazyLoadImage effect='blur' src={b1} width='100%' className='min-h-[320px]' alt='Banner_Image' /></Link>
@@ -784,7 +783,7 @@ const Home = () => {
             </div>
 
             <div className='mt-4 w-[100vw]'>
-              <Carousel showThumbs={false} showStatus={false} showArrows={false} showIndicators={true} renderIndicator={(onClickHandler, isSelected, index, label) => indicator(onClickHandler, isSelected, index, label)}>
+              <Carousel showThumbs={false} showStatus={false} showArrows={false} showIndicators={true} renderIndicator={(onClickHandler, isSelected, index, label) => Indicator(onClickHandler, isSelected, index, label)}>
                 <Link to='/products'>
                   <div>
                     <LazyLoadImage effect='blur' src={mb1} width='100%' alt='Banner_Image' className='min-h-[200px]'/>
@@ -922,7 +921,7 @@ const Home = () => {
             </div>
 
             <div className='mt-4 w-[100vw]'>
-              <Carousel showThumbs={false} showStatus={false} showArrows={false} showIndicators={true} renderIndicator={(onClickHandler, isSelected, index, label) => indicator(onClickHandler, isSelected, index, label)}>
+              <Carousel showThumbs={false} showStatus={false} showArrows={false} showIndicators={true} renderIndicator={(onClickHandler, isSelected, index, label) => Indicator(onClickHandler, isSelected, index, label)}>
                 <Link to='/products'>
                   <div>
                     <LazyLoadImage effect='blur' src={mc1} width='100%' alt='Banner_Image' className='min-h-[200px]'/>
