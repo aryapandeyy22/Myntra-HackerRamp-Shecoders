@@ -1,7 +1,12 @@
 // AddPost.js
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import CrowdNavbar from './CrowdNavbar';
+import NavbarHome from './NavbarHome';
+import './AddPost.css';
 
 function AddPost() {
   const [postData, setPostData] = useState({
@@ -10,6 +15,11 @@ function AddPost() {
   });
   const [postImage, setPostImage] = useState(null);
   const navigate = useNavigate();
+  const userId = useSelector((state) => state.user.id);
+
+  useEffect(() => {
+    console.log('User ID:' , userId);
+  },[userId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,10 +32,18 @@ function AddPost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!userId) {
+      console.error('User ID is not set');
+      return;
+    }
+
     const formData = new FormData();
+    formData.append('userId' , userId);
     formData.append('caption', postData.caption);
     formData.append('productLinks', postData.productLinks);
     formData.append('postImage', postImage);
+
 
     try {
       const token = localStorage.getItem('authToken');
@@ -35,41 +53,50 @@ function AddPost() {
           Authorization: `Bearer ${token}`
         }
       });
-      navigate('/profile');
+      navigate('/homefeed');
     } catch (error) {
       console.error('Error adding post', error);
     }
   };
 
   return (
-    <div>
-      <h2>Add Post</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="file"
-          name="postImage"
-          onChange={handleImageChange}
-          required
-        />
-        <input
-          type="text"
-          name="caption"
-          value={postData.caption}
-          onChange={handleChange}
-          placeholder="Caption"
-          required
-        />
-        <input
-          type="text"
-          name="productLinks"
-          value={postData.productLinks}
-          onChange={handleChange}
-          placeholder="Product Links"
-          required
-        />
-        <button type="submit">Add Post</button>
-      </form>
+    <>
+    <NavbarHome/>
+    <CrowdNavbar/>
+    
+
+<div className="create-crowd-profile-container">
+    <div className="left-side-crowd">
+      <h1 className="brand-name">Myntra</h1>
     </div>
+    <div className="right-side-crowd">
+      <div className="form-handle-right">
+      <h2>ADD POST</h2>
+      <form onSubmit={handleSubmit} className="form-right">
+        <div className="input-group">
+          <label htmlFor="profileImage">Post Image</label>
+          <input style={{backgroundColor:'white'}} type="file" id="profileImage" name="profileImage" onChange={handleImageChange} />
+        </div>
+        <br></br>
+        <div className="input-group">
+          <label htmlFor="productLinks">Product Links</label>
+          <input type="text" id="profileName" name="profileName" value={postData.productLinks} onChange={handleChange} placeholder="Product Links" />
+        </div>
+        <br></br>
+        <div className="input-group">
+          <label htmlFor="caption">Caption</label>
+          <textarea id="caption" name="caption" value={postData.productLinks} onChange={handleChange} placeholder="Caption"></textarea>
+        </div>
+        <br></br>
+        <button type="submit" className="submit-btn">ADD</button>
+      </form>
+      </div>
+    </div>
+  </div>
+
+
+
+    </>
   );
 }
 

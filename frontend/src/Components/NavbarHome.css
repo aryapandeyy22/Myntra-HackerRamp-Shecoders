@@ -1,0 +1,85 @@
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .logo-section .logo {
+    height: 40px;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .nav-links .new-tag {
+    position: relative;
+  }
+  
+  .nav-links .new-label {
+    color: #ff3e6c;
+    font-size: 10px;
+    margin-left: 2px;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .search-bar input {
+    padding: 8px 30px 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 300px;
+    font-size: 14px;
+  }
+  
+  .search-bar .search-icon {
+    position: absolute;
+    right: 10px;
+    font-size: 18px;
+    color: #888;
+  }
+  
+  .profile-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .profile-section a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-section .profile-icon,
+  .profile-section .wishlist-icon,
+  .profile-section .bag-icon {
+    margin-right: 5px;
+  }
+  
+  .profile-section .notification-badge {
+    background-color: #ff3e6c;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 10px;
+    margin-left: 5px;
+  }
+  

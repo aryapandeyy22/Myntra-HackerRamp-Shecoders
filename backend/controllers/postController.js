@@ -3,7 +3,7 @@ const cloudinary = require('../config/cloudinaryConfig.js');
 const db = require('../config/dbConfig');
 
 const addPost = (req, res) => {
-  const { caption, productLinks } = req.body;
+  const { userId, caption, productLinks } = req.body;
   const postImage = req.file;
 
   // Upload image to Cloudinary
@@ -16,8 +16,8 @@ const addPost = (req, res) => {
     const imageUrl = result.secure_url;
 
     // Store post details in database
-    const query = 'INSERT INTO posts (caption, productLinks, postImage, createdAt) VALUES (?, ?, ?, NOW())';
-    db.query(query, [caption, productLinks, imageUrl], (err, results) => {
+    const query = 'INSERT INTO posts (userId, caption, productLinks, imageUrl) VALUES (?, ?, ?, ?)';
+    db.query(query, [userId,caption, productLinks, imageUrl], (err, results) => {
       if (err) {
         console.error('Error adding post:', err);
         return res.status(500).json({ message: 'Internal server error' });
@@ -28,6 +28,17 @@ const addPost = (req, res) => {
   });
 };
 
+const getPosts = (req, res) => {
+  const sql = `SELECT posts.*, crowdprofile.profileName, crowdprofile.profileImage FROM posts
+               JOIN crowdprofile ON posts.userId = crowdprofile.id ORDER BY posts.id DESC`;
+  db.query(sql, (err, results) => {
+    if (err) throw err;
+    res.json(results);
+  });
+};
+
+
 module.exports = {
-  addPost
+  addPost,
+  getPosts
 };

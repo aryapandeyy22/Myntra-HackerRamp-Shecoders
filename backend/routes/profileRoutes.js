@@ -5,7 +5,7 @@ const profileController = require('../controllers/profileController');
 
 //router.get('/profile', profileController.getProfile);
 
-router.get('/get-profile', profileController.getProfile);
-router.get('/update-profile', profileController.updateProfile);
+router.post('/get-profile', profileController.getProfile);
+router.post('/update-profile', profileController.updateProfile);
 
 module.exports = router;
